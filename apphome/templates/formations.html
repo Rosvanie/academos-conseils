@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/formations.css' %}">
+</head>
+<body>
+    <section class="header">
+        <div class="navbar">
+            <a href="{% url 'base' %}"><img src="{% static 'img/logo-png-academos.png' %}" alt="logo_academos"></a>
+        
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Saisissez un mot clé, une thématique, un métier">
+                <button type="button" class="search-button" id="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <div id="search-results"></div> <!-- Conteneur pour afficher les résultats -->
+            </div>
+        
+            <div class="menu">
+                <a href="{% url 'base' %}">Accueil</a>
+                <a href="{% url 'about' %}">A propos</a>
+        
+                <!-- Menu déroulant pour Services -->
+                <div class="dropdown">
+                    <a href="{% url 'service' %}" class="dropdown-toggle">Services</a>
+                    <div class="submenu">
+                        <a href="{% url 'manage' %}">Management</a>
+                        <a href="{% url 'accompagne' %}">Accompagnement</a>
+                        <a href="{% url 'audit' %}">Audit</a>
+                        <a href="{% url 'conseil' %}">Conseil</a>
+                        <a href="{% url 'salle' %}">Salle à louer</a>
+                    </div>
+                </div>
+        
+                <a href="{% url 'formation' %}" class="active">Formations</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+        </div>
+
+        <div class="nav-menu">
+            <p>vous êtes ici : </p>
+            <a href="{% url 'base' %}">Accueil > </a>
+            <a href="#" class="active">Nos formations</a>
+        </div>
+
+        <div class=" section row_contact">
+            <div class="image-background">
+                <div class="text-overlay">
+                    <h3>Nos offres de formation <span>professionnelle </span>et <span>continue </span></h3>
+                </div>
+            </div> 
+        </div>
+        
+        <div class="section content">
+            <div class="text">
+                <h1>Découvrez nos formations Prêt-à-former</h1>
+                <p>Découvrez notre catalogue de formations et trouvez celle qui vous correspond aussi bien en termes 
+                    de contenu que de format : <span>inter entreprise, intra entreprise, sur-mésure, digitale… </span>Il y en a 
+                    forcément une faite pour vous !
+                </p>
+            </div>
+            
+            <div class="grid"> 
+                {% for data in formations_data %}
+                    <div class="card">
+                        {% if data.type_formation.image %}
+                            <img src="{{ data.type_formation.image.url }}" alt="{{ data.type_formation.nom }}">
+                        {% else %}
+                            <img src="{% static 'img/formations/default.png' %}" alt="Formation par défaut">  <!-- Image par défaut si pas d'image -->
+                        {% endif %}
+                        <h4>{{ data.type_formation.nom }}</h4>
+                        <p>
+                            <span>{{ data.thematiques_count }}</span> Thématiques / Total : <span>{{ data.formations_count }} Formations</span>
+                        </p>
+                        <a href="{% url 'thematic' data.type_formation.id %}">Découvrir</a>  <!-- Lien vers la vue thématique avec l'ID -->
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="section custom-section">
+        <div class="full-width-div">
+            <h2 class="main-title">
+                EXCELLENCE OPERATIONNELLE <br>UN MOYEN D'ATTEINDRE LA PERFORMANCE
+            </h2>
+            <p class="main-paragraph">
+                Les entreprises évoluent dans un environnement complexe, concurrentiel et en perpétuel mutation. 
+                Face à ces défis, il est important de mettre en œuvre des stratégies de management, d’avoir des outils 
+                pour maximiser la productivité et de réduire les coûts de production, tout en minimisant les erreurs par 
+                le renforcement de la qualité. <br><br>
+
+                L’Excellence Opérationnelle est un ensemble de démarches d’amélioration de la performance sur l’ensemble 
+                d’une organisation, des individus et équipes qui la constituent. Elle intègre, entre autres, le Lean management,
+                 la méthode Six Sigma, les méthodes agiles, le développement personnel. Elle s’applique aussi bien à la production
+                  industrielle de biens, qu’au marketing, la R&D, les achats, la supply Chain, les services, l’informatique, la santé, 
+                  etc.
+            </p>
+        </div>
+        
+        <div class="content-div">
+            <div class="content-block">
+                <i class="fa-solid fa-signal"></i>
+                <h3 class="block-title">N°1</h3>
+                <p class="block-paragraph">
+                    L’optimisation de la performance et des processus avec Lean Six Sigma et les normes ISO
+                </p>
+        
+            </div>
+
+            <div class="content-block">
+                <i class="fa-solid fa-gears"></i>
+                <h3 class="block-title">N°2</h3>
+                <p class="block-paragraph">
+                    L’optimisation de la performance et des processus avec Lean Six Sigma et les normes ISO
+                </p>
+        
+            </div>
+
+            <div class="content-block">
+                <i class="fa-solid fa-unlock-keyhole"></i>
+                <h3 class="block-title">N°3</h3>
+                <p class="block-paragraph">
+                    Le management de l’innovation et de la sécurité
+                </p>
+        
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="footer-container">
+            <!-- Logo et présentation -->
+            <div class="footer-column footer-logo">
+                <img src="{% static 'img/logo-png-academos.png' %}" alt="Logo AcademOS">
+                <p>Des solutions professionnelles adaptées à vos besoins. Simplifiez vos projets avec nos services sur mesure.</p>
+            </div>
+    
+            <!-- Liens rapides -->
+            <div class="footer-column">
+                <h4>Liens rapides</h4>
+                <a href="#">Accueil</a>
+                <a href="#">Nos services</a>
+                <a href="#">À propos</a>
+                <a href="#">Contactez-nous</a>
+            </div>
+    
+            <!-- Contact -->
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>Email : <a href="mailto:contact@academos.com">contact@academos.com</a></p>
+                <p>Téléphone : +221 77 123 45 67</p>
+                <div class="footer-social-icons">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            &copy; 2025 AcademOS Conseils. Tous droits réservés.
+        </div>
+    </footer>
+
+
+    <script src="{% static 'js/script.js' %}" async defer></script>
+</body>
+</html>

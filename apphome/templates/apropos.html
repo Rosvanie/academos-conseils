@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/apropos.css' %}">
+    <title>A Propos d'Academos-conseils</title>
+</head>
+<body>
+
+    <section class="header ">
+        <div class="navbar">
+            <a href="{% url 'base' %}"><img src="{% static 'img/logo-png-academos.png' %}" alt="logo_academos"></a>
+        
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Saisissez un mot clé, une thématique, un métier">
+                <button type="button" class="search-button" id="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <div id="search-results"></div> <!-- Conteneur pour afficher les résultats -->
+            </div>
+            
+            
+        
+            <div class="menu">
+                <a href="{% url 'base' %}">Accueil</a>
+                <a href="{% url 'about' %}" class="active">A propos</a>
+        
+                <!-- Menu déroulant pour Services -->
+                <div class="dropdown">
+                    <a href="{% url 'service' %}" class="dropdown-toggle">Services</a>
+                    <div class="submenu">
+                        <a href="{% url 'manage' %}">Management</a>
+                        <a href="{% url 'accompagne' %}">Accompagnement</a>
+                        <a href="{% url 'audit' %}">Audit</a>
+                        <a href="{% url 'conseil' %}">Conseil</a>
+                        <a href="{% url 'salle' %}">Salle à louer</a>
+                    </div>
+                </div>
+        
+                <a href="{% url 'formation' %}">Formations</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+        </div>
+
+        <div class="section container-propos">
+            <div class="image-background">
+                <div class="text-overlay">
+                  <h1>À propos d'Academos Conseil</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-propos2">
+            <div class="text-left">
+                <h1>Notre mission dépasse le simple cadre économique.</h1>
+            </div>
+            <div class="vertical-hr2"></div>
+            <div class="text-right">
+                <p><b>Nous formons et accompagnons les individus et les organisations pour répondre
+                     à leurs enjeux de développement.</b> En aidant nos clients à révéler le meilleur d’eux-mêmes, nous contribuons à rendre le monde professionnel meilleur.
+                     Face aux transformations profondes qui bouleversent nos sociétés, la promesse que nous faisons à nos clients, qu’ils soient donneurs d’ordre ou stagiaires, 
+                     est plus que jamais d’actualité : nous nous engageons à transformer les compétences en performance.
+                </p>
+            </div>
+        </div>  
+    </section>
+
+    <section class="section about-section">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="{% static 'img/apropos/AA1.png' %}" alt="Image de Academos Conseils">
+            </div>
+            <div class="about-text">
+                <p>
+                    ACADEMOS CONSEILS Sarl est un cabinet spécialisé dans la formation professionnelle et continue, le management de la performance, le conseil, l’audit et l’accompagnement.
+                </p>
+                <p>
+                    Nous proposons aux entreprises et particuliers des services à forte valeur ajoutée pour atteindre l’excellence opérationnelle de l’ensemble des processus métiers et supports, ainsi que les objectifs de rentabilité planifiés.
+                </p>
+                <p>
+                    Avec notre offre variée de services à la pointe de l’innovation et nos équipes d’experts tant nationaux qu’internationaux, nous offrons un soulagement fiable aux problématiques de développement des compétences des collaborateurs, 
+                    de performance des processus opérationnels auxquelles les entreprises font face.
+                </p>
+                <p>
+                    Pour l’ensemble des interventions, nous nous assurons que nos prestations répondent parfaitement aux besoins et exigences du client. Nos équipes de spécialistes fournissent un soutien continu et de qualité grâce à notre expertise, 
+                    proactivité et réactivité démontrées, gage du service après-vente de choix.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="section reasons-section">
+        <h2 class="section-title">Les 7 bonnes raisons pour nous choisir</h2>
+    
+        <div class="reasons-grid">
+            <div class="number3">
+                <div class="card">
+                    <img src="{% static 'img/apropos/offre.jpg' %}" alt="Raison 1" class="card-image">
+                    <div class="reason-number">
+                        <span>1</span>
+                    </div>
+                    <h3 class="card-title">L'OFFRE</h3>
+                    <p class="card-description">
+                        Du management à l’informatique, en passant par la gestion 
+                        de projet et la GRH, vous trouverez dans ce catalogue une 
+                        centaine de formations clés en main, dont certaines sont 
+                        certifiantes. Toutes nos formations en Inter sont adaptables en Intra.
+                    </p>
+                </div>
+                <div class="card">
+                    <img src="{% static 'img/apropos/expertise.jpg' %}" alt="Raison 2" class="card-image">
+                    <div class="reason-number">
+                        <span>2</span>
+                    </div>
+                    <h3 class="card-title">L'EXPERTISE</h3>
+                    <p class="card-description">
+                        La formation professionnelle est le cœur de métier d’ACADEMOS 
+                        CONSEILS. Nos formations sont systématiquement mises à jour et
+                         répondent aux besoins des entreprises en termes d’innovation 
+                         et d’évolution.
+                        </p>
+                </div>
+                <div class="card">
+                    <img src="{% static 'img/apropos/qualification.png' %}" alt="Raison 3" class="card-image">
+                    <div class="reason-number">
+                        <span>3</span>
+                    </div>
+                    <h3 class="card-title">LA QUALIFICATION</h3>
+                    <p class="card-description">
+                        Nos intervenants sont tous reconnus sur le plan national et/ou 
+                        international. Ils sont sélectionnés sur la base de leurs 
+                        expertises, de leurs compétences pédagogiques et beaucoup 
+                        d'entre eux sont auteurs d’ouvrages de référence dans leurs 
+                        domaines respectifs.
+                    </p>
+                </div>
+            </div>
+            <div class="number4">
+                <div class="card">
+                    <img src="{% static 'img/apropos/veillepedagogie.jpg' %}" alt="Raison 4" class="card-image">
+                    <div class="reason-number">
+                        <span>4</span>
+                    </div>
+                    <h3 class="card-title">la veille pédagogique</h3>
+                    <p class="card-description">
+                        Notre veille pédagogique constante permet d'apporter à nos apprenants 
+                        les meilleurs contenus possible (nouvelles formations, nouvelles méthodes 
+                        ou outils de formation, versions de cours réactualisées, etc.).
+                    </p>
+                </div>
+                <div class="card">
+                    <img src="{% static 'img/apropos/certification.png' %}" alt="Raison 5" class="card-image">
+                    <div class="reason-number">
+                        <span>5</span>
+                    </div>
+                    <h3 class="card-title">la certification</h3>
+                    <p class="card-description">
+                        Nos partenariats avec les plus grands organismes mondiaux accrédités 
+                        de solutions tels que Microsoft ou Cisco, nous permettent de dispenser 
+                        à nos participants des cours officiels et de les accompagner avec succès 
+                        pour obtenir un certificat international reconnu par la profession.
+                    </p>
+                </div>
+                <div class="card">
+                    <img src="{% static 'img/apropos/le service.jpg' %}" alt="Raison 6" class="card-image">
+                    <div class="reason-number">
+                        <span>6</span>
+                    </div>
+                    <h3 class="card-title">le service</h3>
+                    <p class="card-description">
+                        Notre équipe est à votre écoute et vous conseille sur les formations 
+                        les mieux adaptées à vos besoins. Nos cours, limités à 13 participants, 
+                        sont dispensés dans des salles entièrement équipées afin de garantir des 
+                        conditions optimales d’apprentissage.
+                    </p>
+                </div>
+                <div class="card">
+                    <img src="{% static 'img/apropos/Prix.png' %}" alt="Raison 7" class="card-image">
+                    <div class="reason-number">
+                        <span>7</span>
+                    </div>
+                    <h3 class="card-title">le prix</h3>
+                    <p class="card-description">
+                        Des réductions pouvant aller jusqu’à 50% sont proposées en 
+                        fonction du nombre de participants. Plus encore, nos offres 
+                        INTER incluent les pauses, les déjeuners et les supports de 
+                        cours. Un accordcadre est possible pour les entreprises
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section custom-section">
+        <!-- Section pleine largeur avec un fond distinctif -->
+        <div class="full-width-div">
+            <h2 class="main-title">
+                L'EXPERTISE TECHNIQUE ET PÉDAGOGIQUE
+            </h2>
+            <p class="main-paragraph">
+                Animer une formation, c’est transmettre un savoir, une expérience, mieux encore un enthousiasme. 
+                C’est pourquoi chez <b>ACADEMOS CONSEILS</b>, au-delà d’une expertise technique reconnue, 
+                nos consultants-formateurs ont tous en commun une très bonne maîtrise des processus d’apprentissage, 
+                garantissant à nos stagiaires une appropriation parfaite des connaissances transmises.
+            </p>
+        </div>
+
+        <div class="valeurs-grid">
+            <h2 class="section-title">Nos valeurs</h2>
+            <p>ACADEMOS CONSEILS se construit sur l'engagement et la fidélité de ses collaborateurs et 
+                ppartenaires, femmes et hommes talentueux qui font la différence. Notre performance repose 
+                sur des valeurs fortes au service d'objectifs partagés et d'une vision à long terme :
+            </p>
+            <div class="number-grid">
+                <div class="card">
+                    <h3 class="card-title">Agilité & Innovation</h3>
+                    <p class="card-description">
+                        Attentifs aux évolutions, nous adoptons nos services et osons pour créer de la valeur
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Excellence</h3>
+                    <p class="card-description">
+                        Exigeant le meilleur pour nos clients, l'amélioration continue de nos prestations demeure notre priorité
+                        au quotidien
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Humilité</h3>
+                    <p class="card-description">
+                        Respectueux des autres,, nous sommes reconnaissants de la contribution de chacun
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    
+    </section>
+    
+    
+
+    <section class="section full-height-section">
+        
+        <div class="newsletter">
+            <h1>Abonnez-vous à notre newsletter</h1>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Mot de passe" required>
+                <button type="submit">S'abonner</button>
+            </form>
+        </div>
+
+    </section>
+    
+
+    <section class="section full-height-section">
+
+        <div class="carousel">
+            <h1>ILS NOUS FONT CONFIANCE</h1>
+            <div class="logos">
+              <img src="{% static 'img/clients partenaire/1.png' %} " alt="Logo BRALICO">
+              <img src="{% static 'img/clients partenaire/2.png' %}" alt="Logo Archer">
+              <img src="{% static 'img/clients partenaire/3.jfif' %}" alt="Logo Perenco">
+              <img src="{% static 'img/clients partenaire/4.jfif' %}" alt="Logo SGS">
+              <img src="{% static 'img/clients partenaire/5.jfif' %}" alt="Logo Client 5">
+              <img src="{% static 'img/clients partenaire/6.jfif' %}" alt="Logo Client 6">
+              <img src="{% static 'img/clients partenaire/7.jfif' %}" alt="Logo Client 7">
+              <img src="{% static 'img/clients partenaire/8.jfif' %}" alt="Logo Client 8">
+              <img src="{% static 'img/clients partenaire/9.jpg' %}" alt="Logo Client 9">
+              <img src="{% static 'img/clients partenaire/10.png' %}" alt="Logo Client 10">
+              <img src="{% static 'img/clients partenaire/11.jpg' %}" alt="Logo Client 11">
+              <img src="{% static 'img/clients partenaire/12.jfif' %}" alt="Logo Client 12">
+              <img src="{% static 'img/clients partenaire/13.png' %}" alt="Logo Client 13">
+              <img src="{% static 'img/clients partenaire/14.png' %}" alt="Logo Client 14">
+              <img src="{% static 'img/clients partenaire/15.jfif' %}" alt="Logo Client 15">
+              <img src="{% static 'img/clients partenaire/16.png' %}" alt="Logo Client 16">
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <!-- Logo et présentation -->
+            <div class="footer-column footer-logo">
+                <img src="{% static 'img/logo-png-academos.png' %}" alt="Logo AcademOS">
+                <p>Des solutions professionnelles adaptées à vos besoins. Simplifiez vos projets avec nos services sur mesure.</p>
+            </div>
+    
+            <!-- Liens rapides -->
+            <div class="footer-column">
+                <h4>Liens rapides</h4>
+                <a href="#">Accueil</a>
+                <a href="#">Nos services</a>
+                <a href="#">À propos</a>
+                <a href="#">Contactez-nous</a>
+            </div>
+    
+            <!-- Contact -->
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>Email : <a href="mailto:contact@academos.com">contact@academos.com</a></p>
+                <p>Téléphone : +221 77 123 45 67</p>
+                <div class="footer-social-icons">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            &copy; 2025 AcademOS Conseils. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}" ></script>
+</body>
+</html>

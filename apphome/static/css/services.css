@@ -1,0 +1,831 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*GENERAL*/
+
+:root {
+    --primary-color: #003BCE; /* Couleur principale */
+    --primary-bold-color: #001B70;
+    --secondary-color: #FFCE00; /* Couleur secondaire */
+    --accent-color: #ffffff; /* Couleur d'accent */
+    --text-color: #010C21; /* Couleur du texte */
+    --alert-color:#FF0000;/*Pour l'alert*/
+    --background-color: #c2bcbc; /* Couleur d'arrière-plan */
+    --text2-color:#000000;
+
+}
+
+
+*{
+    padding: 0; margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* Empêche le défilement global */
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+    
+}
+
+section {
+    position: relative;
+    width: 100vw;
+    overflow: auto; /* Permet le défilement à l'intérieur de la section si nécessaire */
+}
+
+/* Animation Keyframe */
+@keyframes fadeInUpScale {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Style pour les sections animées uniquement */
+  .section {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  /* Appliquer l'animation uniquement aux sections en vue */
+  .section.in-view {
+    animation: fadeInUpScale 0.8s ease forwards;
+  }
+  
+
+
+
+
+
+/*SECTION_ACCEUIL*/
+
+header{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 65px;
+    background-color: var(--alert-color);
+    align-items: center;
+    color: var(--accent-color);
+    gap: 20px;
+    z-index: 1; /* Assure que le header est sous la navbar fixe */
+}
+
+header i{
+    color: #000000;
+    font-size: 50px;
+    margin: 0 30px;
+}
+
+header p{
+    font-size: 0.8rem;
+}
+
+.navbar {
+    position: fixed; /* Fixe la navbar en haut de la page */
+    top: 0; /* Place la navbar en haut */
+    left: 0;
+    right: 0;
+    animation: slideIn 2s ease-out;
+    width: 100%; /* Prend toute la largeur de la fenêtre */
+    height: 90px; /* Hauteur de la navbar */
+    background-color: var(--accent-color); /* Couleur de fond de la navbar */
+    display: flex; /* Utilise Flexbox pour aligner les éléments */
+    align-items: center; /* Centre les éléments verticalement */
+    justify-content: space-around; /* Espacement égal entre les éléments */
+    z-index: 1000; /* Assure que la navbar est au-dessus du contenu */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour la distinction */
+}
+/* Ajoutez un padding supérieur au body pour éviter que le contenu ne soit caché derrière la navbar */
+body {
+    padding-top: 90px; /* Ajustez cette valeur selon la hauteur de votre navbar */
+}
+
+.navbar img{
+    width: 170px;
+}
+.menu{
+    display: flex;
+    gap: 20px;
+    
+    
+}
+
+.menu a{
+    font-weight: 600;
+    font-size: 18px;
+    gap: 20px;
+    color: var(--text-color);
+    transition: 1s;
+    display: inline-block; /* Assure que le pseudo-élément prend toute la largeur */
+    overflow: hidden; /* Cache le débordement de l'animation */
+    
+}
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Largeur initiale de la bordure */
+    height: 2px; /* Épaisseur de la bordure */
+    background-color: var(--secondary-color); /* Couleur de la bordure */
+    transition: width 1s ease; /* Transition de la largeur de la bordure */
+
+}
+.menu a:hover{
+    color: var(--primary-bold-color); /* Couleur du texte au survol */
+    font-weight: 700;
+}
+
+.menu a:hover::after {
+    width: 100%; /* Largeur finale de la bordure */
+}
+
+.menu a.active{
+    color: var(--primary-color);
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.search-container input[type="search"] {
+    padding: 10px 40px 10px 20px; /* Ajout de l'espace pour l'icône */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 0.5rem;
+    width: 500px;
+}
+
+.search-button {
+    position: absolute;
+    right: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.search-button i {
+    font-size: 20px;
+}
+
+
+/* Montrer le menu lorsqu'il est actif */
+.menu.active {
+    display: flex;
+}
+
+
+/* Style du menu déroulant */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--accent-color); /* Utilisation de la couleur d'accentuation */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour l'effet de profondeur */
+    z-index: 10;
+    min-width: 150px;
+}
+
+.submenu a {
+    display: block;
+    color: var(--text-color); /* Couleur du texte */
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.submenu a:hover {
+    background-color: var(--primary-bold-color); /* Changement de couleur au survol */
+    color: #fff; /* Couleur de texte au survol */
+}
+
+/* Afficher le sous-menu au survol */
+.dropdown:hover .submenu {
+    display: block;
+}
+
+
+
+/* Media Queries pour la responsivité */
+
+@media (max-width: 1290px) {
+    .navbar {
+        width: 100%;
+        box-sizing: border-box;
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        overflow-x: hidden; /* Empêche les débordements horizontaux */
+    }
+
+    .menu {
+        justify-content: center;
+        gap: 20px;
+        width: 100%; /* Assure que le menu prend toute la largeur */
+        margin: 0;
+    }
+
+    .navbar img {
+        width: 120px;
+        max-width: 100%; /* Assure que l'image ne dépasse jamais 100% de la largeur */
+    }
+
+    .menu a {
+        font-size: 12px;
+        margin: 20px 0;
+    }
+
+    .search-container input[type="search"] {
+        max-width: 90vw; /* Définit une largeur maximale */
+    }
+
+    body, html {
+        width: 100%;
+        overflow-x: hidden; /* Empêche les débordements horizontaux */
+        padding-top: 90px;
+    }
+}
+
+
+
+
+
+
+/* ROW_TEXT STYLES */
+.row_text {
+    width: 100%;
+}
+
+.image-background {
+    width: 100%;
+    height: 60vh; /* 80% de la hauteur de la fenêtre */
+    background-image: url('../img/services.jpg') ; /* Remplacez par le chemin de votre image */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%; /* Le dégradé dépasse la largeur du texte */
+    height: 100%; /* Prend toute la hauteur */
+    background: linear-gradient(
+      to right,
+      rgba(30, 8, 90, 0.8) 20%,
+      rgba(6, 2, 32, 0.5) 70%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alignement du texte à gauche */
+    padding-left: 5%; /* Ajoute un espace à gauche pour aérer */
+  }
+
+.row_text h3 {
+    color: white; /* Couleur du texte */
+    font-size: 3rem; /* Taille du texte */
+    font-weight: bold; /* Texte plus marqué */
+    text-align: left; /* Alignement du texte à gauche */
+    line-height: 1.4;
+    max-width: 70%; /* Le texte occupe au maximum 60% de la largeur */
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7); /* Donne de la profondeur au texte */
+    border-left: 5px solid rgba(255, 255, 255, 0.8); /* Ligne décorative à gauche */
+    padding-left: 15px; /* Espace entre le texte et la ligne */
+}
+
+
+
+
+
+
+
+
+
+/* ROW_TEXT2 STYLES */
+.row_text2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.row_text2 h3 {
+    font-size: 2rem;
+    margin-top: 10px;
+}
+
+.row_text2 hr {
+    width: 100px;
+    height: 5px;
+    border: 3px solid var(--secondary-color);
+    background-color: var(--secondary-color);
+    margin: 5px auto;
+}
+
+.row_text2 p {
+    width: 75%;
+    margin-top: 25px;
+    margin-bottom: 30px;
+
+}
+
+.row_text2 p span{
+    font-weight: 800;
+}
+
+.row_text2 a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--secondary-color);
+    color: var(--text2-color);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.row_text2 a:hover {
+    background-color: var(--secondary-color);
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Tablettes et petits écrans (max-width: 768px) */
+@media (max-width: 768px) {
+    .row_text {
+        height: auto;
+        padding: 15px;
+    }
+
+    .row_text h3 {
+        font-size: 1.5rem;
+    }
+
+    .row_text p {
+        font-size: 0.9rem;
+    }
+
+    .row_text a {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .row_text2 {
+        height: auto;
+        padding: 15px;
+    }
+
+    .row_text2 h3 {
+        font-size: 1.5rem;
+    }
+
+    .row_text2 hr {
+        width: 80px;
+    }
+
+    .row_text2 p {
+        font-size: 0.9rem;
+    }
+
+    .row_text2 a {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobiles (max-width: 480px) */
+@media (max-width: 480px) {
+    .row_text {
+        height: auto;
+        padding: 10px;
+    }
+
+    .row_text h3 {
+        font-size: 1.3rem;
+    }
+
+    .row_text p {
+        font-size: 0.8rem;
+    }
+
+    .row_text a {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .row_text2 {
+        height: auto;
+        padding: 10px;
+    }
+
+    .row_text2 h3 {
+        font-size: 1.3rem;
+    }
+
+    .row_text2 hr {
+        width: 70px;
+    }
+
+    .row_text2 p {
+        font-size: 0.8rem;
+    }
+
+    .row_text2 a {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+/* --- Section Style --- */
+.reasons-section {
+    padding: 60px 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--primary-bold-color); /* Violet */
+    margin-bottom: 30px;
+}
+
+.reasons-section P{
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 800;
+}
+
+.reasons-section a{
+    padding: 10px;
+    border-radius: 20px;
+    text-decoration: none;
+    background: var(--primary-bold-color);
+    color: var(--accent-color);
+    
+}
+
+.reasons-section a:hover{
+    scale: 1.1;
+    background: var(--primary-color);
+}
+
+/* Grille pour les cartes */
+.reasons-grid {
+    display: grid;
+    gap: 20px; /* Espacement entre les cartes */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Styles pour les groupes de cartes */
+.number3{
+    display: grid;
+    gap: 20px; /* Espacement entre les cartes */
+}
+
+/* Styles pour la div number3 */
+.number3 {
+    grid-template-columns: repeat(3, 1fr); /* 3 cartes sur la première ligne */
+}
+
+
+/* Styles pour les cartes */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--accent-color);
+    border-radius: 10px;
+    padding: 15px; /* Diminuer le padding */
+    box-shadow: 0 4px 15px rgba(67, 13, 247, 0.909);
+    transition: transform 0.3s;
+    overflow: hidden; /* Assurez-vous que le contenu ne dépasse pas */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Dimensions fixes pour les images */
+.card-image {
+    width: 100%; /* Prend 100% de la largeur de la carte */
+    height: 140px; /* Ajuster la hauteur */
+    object-fit: cover; /* Couvre l'espace sans déformer l'image */
+    margin-bottom: 15px; /* Réduire l'espace entre l'image et le texte */
+}
+
+.reason-number {
+    background-color: var(--primary-bold-color);
+    color: var(--accent-color);
+    width: 40px; /* Diminuer légèrement la largeur */
+    height: 40px; /* Diminuer légèrement la hauteur */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em; /* Réduire la taille de la police */
+    margin-bottom: 10px; /* Réduire l'espace sous le numéro */
+}
+
+.card-title {
+    font-size: 1.2em; /* Réduire la taille de la police */
+    color: var(--primary-bold-color); /* Violet */
+    margin-bottom: 5px; /* Réduire l'espace sous le titre */
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.card-description {
+    font-size: 0.85em; /* Réduire la taille de la police */
+    color: var(--text2-color);
+    text-align: center;
+    line-height: 1.4; /* Ajuster l'interligne pour plus de lisibilité */
+}
+
+/* Keyframes pour l'animation d'apparition */
+@keyframes slideUpFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(50px); /* Part de 50px en bas */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0); /* Position finale */
+    }
+  }
+  
+  /* Style de base des cartes */
+  .card {
+    opacity: 0;
+    transform: translateY(50px); /* Position de départ */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  /* Animation appliquée lorsqu'une carte devient visible */
+  .card.in-view {
+    animation: slideUpFadeIn 0.8s ease forwards;
+  }
+  
+  /* Effet de survol */
+  .card:hover {
+    transform: translateY(-8px) !important; /* Ajout de !important pour prioriser cette règle */
+    transition: transform 0.5s ease; /* Transition pour un effet de survol fluide */
+  }
+  
+
+
+/* Responsiveness */
+@media (min-width: 1200px) {
+    .number3 {
+        grid-template-columns: repeat(3, 1fr); /* 3 cartes sur la première ligne */
+    }
+}
+
+@media (max-width: 1199px) {
+    .number3 {
+        grid-template-columns: repeat(2, 1fr); /* 2 cartes pour les écrans moyens */
+    }
+}
+
+@media (max-width: 900px) {
+    .number3 {
+        grid-template-columns: 1fr; /* 1 carte pour les petits écrans */
+    }
+
+}
+
+
+
+
+
+
+/* PARTENAIRE */
+
+/* Conteneur principal */
+.carousel {
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 30px 20px;
+    background: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Titre */
+  .carousel h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #1e085a;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    position: relative;
+  }
+  
+  .carousel h1::after {
+    content: '';
+    display: block;
+    width: 70px;
+    height: 3px;
+    background: #251583;
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+  
+  /* Grille des logos */
+  .logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .logos img {
+    width: auto;
+    height: 70px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+  }
+  
+  .logos img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Ajustements pour petits écrans */
+  @media (max-width: 768px) {
+    .logos img {
+      max-width: 120px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .carousel h1 {
+      font-size: 1.8rem;
+    }
+  
+    .logos img {
+      max-width: 100px;
+    }
+  }
+  
+
+
+
+
+
+
+/*FOOTER*/
+/* FOOTER */
+footer {
+    background-color: #0d0d2b; /* Bleu nuit profond */
+    color: #d4d4dc; /* Gris clair pour contraste optimal */
+    padding: 60px 20px;
+    font-family: 'Inter', sans-serif; /* Typographie moderne et élégante */
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Ligne fine et discrète */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Colonnes du footer */
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.footer-column h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.footer-column h4::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: var(--secondary-color); /* Couleur d'accent */
+    margin-top: 8px;
+}
+
+.footer-column a {
+    display: block;
+    font-size: 1rem;
+    color: #d4d4dc;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: var(--secondary-color); /* Teinte élégante au survol */
+}
+
+/* Icônes sociales */
+.footer-social-icons {
+    display: flex;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.footer-social-icons a {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #1a1a3d;
+    color: #ffffff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.footer-social-icons a:hover {
+    background: var(--secondary-color); /* Accent dynamique */
+    color: var(--text2-color);
+    transform: scale(1.1);
+}
+
+/* Logo */
+.footer-logo img {
+    max-width: 150px; /* Largeur maximale du logo */
+    height: auto; /* Maintenir le ratio du logo */
+    margin-bottom: 20px;
+}
+
+/* Lien copyright */
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #888888;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .footer-column {
+        margin-bottom: 40px;
+    }
+}

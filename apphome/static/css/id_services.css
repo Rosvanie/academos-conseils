@@ -1,0 +1,498 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*GENERAL*/
+
+:root {
+    --primary-color: #003BCE; /* Couleur principale */
+    --primary-bold-color: #001B70;
+    --secondary-color: #FFCE00; /* Couleur secondaire */
+    --accent-color: #ffffff; /* Couleur d'accent */
+    --text-color: #010C21; /* Couleur du texte */
+    --alert-color:#FF0000;/*Pour l'alert*/
+    --background-color: #c2bcbc; /* Couleur d'arrière-plan */
+    --text2-color:#000000;
+
+}
+
+
+*{
+    padding: 0; margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* Empêche le défilement global */
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+    
+}
+
+section {
+    position: relative;
+    width: 100vw;
+    overflow: auto; /* Permet le défilement à l'intérieur de la section si nécessaire */
+}
+
+/* Animation Keyframe */
+@keyframes fadeInUpScale {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Style pour les sections animées uniquement */
+  .section {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  /* Appliquer l'animation uniquement aux sections en vue */
+  .section.in-view {
+    animation: fadeInUpScale 0.8s ease forwards;
+  }
+  
+
+
+.navbar {
+    position: fixed; /* Fixe la navbar en haut de la page */
+    top: 0; /* Place la navbar en haut */
+    left: 0;
+    right: 0;
+    animation: slideIn 2s ease-out;
+    width: 100%; /* Prend toute la largeur de la fenêtre */
+    height: 90px; /* Hauteur de la navbar */
+    background-color: var(--accent-color); /* Couleur de fond de la navbar */
+    display: flex; /* Utilise Flexbox pour aligner les éléments */
+    align-items: center; /* Centre les éléments verticalement */
+    justify-content: space-around; /* Espacement égal entre les éléments */
+    z-index: 1000; /* Assure que la navbar est au-dessus du contenu */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour la distinction */
+}
+/* Ajoutez un padding supérieur au body pour éviter que le contenu ne soit caché derrière la navbar */
+body {
+    padding-top: 90px; /* Ajustez cette valeur selon la hauteur de votre navbar */
+}
+
+.navbar img{
+    width: 170px;
+}
+.menu{
+    display: flex;
+    gap: 20px;
+    
+    
+}
+
+.menu a{
+    font-weight: 600;
+    font-size: 18px;
+    gap: 20px;
+    color: var(--text-color);
+    transition: 1s;
+    display: inline-block; /* Assure que le pseudo-élément prend toute la largeur */
+    overflow: hidden; /* Cache le débordement de l'animation */
+    
+}
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Largeur initiale de la bordure */
+    height: 2px; /* Épaisseur de la bordure */
+    background-color: var(--secondary-color); /* Couleur de la bordure */
+    transition: width 1s ease; /* Transition de la largeur de la bordure */
+
+}
+.menu a:hover{
+    color: var(--primary-bold-color); /* Couleur du texte au survol */
+    font-weight: 700;
+}
+
+.menu a:hover::after {
+    width: 100%; /* Largeur finale de la bordure */
+}
+
+.menu a.active{
+    color: var(--primary-color);
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.search-container input[type="search"] {
+    padding: 10px 40px 10px 20px; /* Ajout de l'espace pour l'icône */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 0.5rem;
+    width: 500px;
+}
+
+.search-button {
+    position: absolute;
+    right: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.search-button i {
+    font-size: 20px;
+}
+
+
+/* Montrer le menu lorsqu'il est actif */
+.menu.active {
+    display: flex;
+}
+
+
+/* Style du menu déroulant */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--accent-color); /* Utilisation de la couleur d'accentuation */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour l'effet de profondeur */
+    z-index: 10;
+    min-width: 150px;
+}
+
+.submenu a {
+    display: block;
+    color: var(--text-color); /* Couleur du texte */
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.submenu a:hover {
+    background-color: var(--primary-bold-color); /* Changement de couleur au survol */
+    color: #fff; /* Couleur de texte au survol */
+}
+
+/* Afficher le sous-menu au survol */
+.dropdown:hover .submenu {
+    display: block;
+}
+
+
+
+
+/* Media Queries pour la responsivité */
+
+@media (max-width: 1290px) {
+    .navbar {
+        width: 100%;
+        box-sizing: border-box;
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        overflow-x: hidden; /* Empêche les débordements horizontaux */
+    }
+
+    .menu {
+        justify-content: center;
+        gap: 20px;
+        width: 100%; /* Assure que le menu prend toute la largeur */
+        margin: 0;
+    }
+
+    .navbar img {
+        width: 120px;
+        max-width: 100%; /* Assure que l'image ne dépasse jamais 100% de la largeur */
+    }
+
+    .menu a {
+        font-size: 12px;
+        margin: 20px 0;
+    }
+
+    .search-container input[type="search"] {
+        max-width: 90vw; /* Définit une largeur maximale */
+    }
+
+    body, html {
+        width: 100%;
+        overflow-x: hidden; /* Empêche les débordements horizontaux */
+        padding-top: 90px;
+    }
+}
+
+
+
+/*CONTAINER-ID*/
+.id-service{
+    width: 100%;
+    margin: 20px;
+}
+
+.id-service h1{
+    font-size: 2rem;
+    margin-left: 50px;
+    margin-bottom: 40px;
+}
+.container-id{
+    margin: 0 50px 0 50px;
+    display: flex;
+    overflow: hidden;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.media-id{
+    width: 50%;
+}
+
+.media-id img{
+    width: 500px;
+}
+
+.text-id{
+    width: 50%;
+}
+
+/* Styles Responsifs */
+@media (max-width: 768px) {
+    .media-id,
+    .text-id {
+        flex: 1 1 100%; /* Chaque section occupe toute la largeur sur les petits écrans */
+        margin-bottom: 20px; /* Espace entre les sections */
+    }
+
+    .container-id {
+        margin: 30px 10px; /* Ajuster les marges pour les petits écrans */
+    }
+}
+
+@media (max-width: 480px) {
+    .media-id img {
+        max-width: 100%; /* L'image utilise toute la largeur sur très petits écrans */
+    }
+
+    .row_id h3 {
+        font-size: 2.5rem; /* Réduire la taille du titre pour les petits écrans */
+    }
+}
+
+
+.btn {
+    width: 100%;
+    margin: 2rem auto;
+    text-align: center;
+    display: inline-block; /* Pour le centrer correctement */
+    background-color: var(--primary-bold-color); /* Couleur de fond */
+    color: var(--accent-color); /* Couleur du texte */
+    padding: 10px 20px; /* Espacement interne */
+    text-decoration: none; /* Enlève le soulignement */
+    border-radius: 4px; /* Coins arrondis */
+    font-weight: bold; /* Texte en gras */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Animation sur le survol */
+}
+
+.btn:hover {
+    background-color: var(--secondary-color); /* Changer la couleur de fond au survol */
+    color: var(--primary-bold-color); /* Changer la couleur du texte au survol */
+    transform: scale(1.05); /* Légère augmentation de taille au survol */
+}
+
+
+
+
+
+/*PLUS D'INFO*/
+
+.row_id {
+    margin-bottom: 30px;
+    height: 20vh;
+    text-align: center;
+    justify-content: center;
+    background: linear-gradient(rgba(30, 8, 90, 0.5), rgba(37, 21, 131, 0.5)),
+    url('../img/services/Management-de-la-performance.jpg') center/cover no-repeat;
+    padding: 20px;
+    color: var(--accent-color);
+}
+
+.row_id h3 {
+    margin: 0;
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.row_id h3 span{
+    color: var(--secondary-color);
+}
+
+/* Styles Responsives */
+@media (max-width: 768px) {
+    .container-id {
+        flex-direction: column; /* Change l'orientation pour les petits écrans */
+        align-items: center; /* Centre les éléments */
+    }
+
+    .media-id, .text-id {
+        width: 100%; /* Chaque section occupe toute la largeur */
+        margin-bottom: 20px; /* Ajoute un espace entre les sections */
+    }
+
+    .row_id {
+        height: auto; /* Permet à la hauteur de s'ajuster automatiquement */
+        padding: 30px; /* Augmente le remplissage pour les petits écrans */
+    }
+
+    .row_id h3 {
+        font-size: 2.5rem; /* Réduit la taille de la police pour les petits écrans */
+    }
+}
+
+@media (max-width: 480px) {
+    .row_id h3 {
+        font-size: 2rem; /* Réduction supplémentaire pour les très petits écrans */
+    }
+}
+
+
+
+
+
+
+
+
+/*FOOTER*/
+/* FOOTER */
+footer {
+    background-color: #0d0d2b; /* Bleu nuit profond */
+    color: #d4d4dc; /* Gris clair pour contraste optimal */
+    padding: 60px 20px;
+    font-family: 'Inter', sans-serif; /* Typographie moderne et élégante */
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Ligne fine et discrète */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Colonnes du footer */
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.footer-column h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.footer-column h4::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: var(--secondary-color); /* Couleur d'accent */
+    margin-top: 8px;
+}
+
+.footer-column a {
+    display: block;
+    font-size: 1rem;
+    color: #d4d4dc;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: var(--secondary-color); /* Teinte élégante au survol */
+}
+
+/* Icônes sociales */
+.footer-social-icons {
+    display: flex;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.footer-social-icons a {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #1a1a3d;
+    color: #ffffff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.footer-social-icons a:hover {
+    background: var(--secondary-color); /* Accent dynamique */
+    color: var(--text2-color);
+    transform: scale(1.1);
+}
+
+/* Logo */
+.footer-logo img {
+    max-width: 150px; /* Largeur maximale du logo */
+    height: auto; /* Maintenir le ratio du logo */
+    margin-bottom: 20px;
+}
+
+/* Lien copyright */
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #888888;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .footer-column {
+        margin-bottom: 40px;
+    }
+}

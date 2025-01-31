@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'css/program.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    </head>
+    <body>
+
+        <div class="navbar">
+            <a href="{% url 'base' %}"><img src="{% static 'img/logo-png-academos.png' %}" alt="logo_academos"></a>
+        
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Saisissez un mot clé, une thématique, un métier">
+                <button type="button" class="search-button" id="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <div id="search-results"></div> <!-- Conteneur pour afficher les résultats -->
+            </div>
+        
+            <div class="menu">
+                <a href="{% url 'base' %}">Accueil</a>
+                <a href="{% url 'about' %}">A propos</a>
+        
+                <!-- Menu déroulant pour Services -->
+                <div class="dropdown">
+                    <a href="{% url 'service' %}" class="dropdown-toggle">Services</a>
+                    <div class="submenu">
+                        <a href="{% url 'manage' %}">Management</a>
+                        <a href="{% url 'accompagne' %}">Accompagnement</a>
+                        <a href="{% url 'audit' %}">Audit</a>
+                        <a href="{% url 'conseil' %}">Conseil</a>
+                        <a href="{% url 'salle' %}">Salle à louer</a>
+                    </div>
+                </div>
+        
+                <a href="{% url 'formation' %}">Formations</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+        </div>
+
+        <div class="nav-menu">
+            <p>vous êtes ici : </p>
+            <a href="{% url 'base' %}">Accueil > </a>
+            <a href="#" class="active">Programme</a>
+        </div>
+
+
+        <div class=" section row_contact">
+            <h3>Nos programmes structurés <span>spécialement </span>pour chacun <span>de vous</span></h3>
+        </div>
+
+
+        <section  id="programme-formation">
+        
+            <div class="formation-container">
+                <div class="formation-details">
+                    <div class="formation-section">
+                        <h3>Nom de la formation</h3>
+                        <hr>
+                        <p><strong>{{ formation.titre }}</strong></p>
+                    </div>
+                
+                    {% if programmes.exists %}
+                    <div class="formation-section">
+                        <h3>Description<span class="toggle-icon">+</span></h3>
+                        <hr>
+                        <p class="toggle-content">{{ programmes.first.description_quoi }}</p>
+                    </div>
+                
+                    <div class="formation-section">
+                        <h3>Pourquoi se certifier en cette formation ?<span class="toggle-icon">+</span></h3>
+                        <hr>
+                        <p class="toggle-content">{{ programmes.first.description_pourquoi }}</p>
+                    </div>
+                
+                    <div class="formation-section">
+                        <h3>Objectifs de la Formation<span class="toggle-icon">+</span></h3>
+                        <hr>
+                        <ul class="toggle-content">
+                            {% for objectif in programmes.first.objectifs.splitlines %}
+                                <li>{{ objectif }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                
+                    <div class="formation-section">
+                        <h3>Public Cible<span class="toggle-icon">+</span></h3>
+                        <hr>
+                        <ul class="toggle-content">
+                            {% for public in programmes.first.public_cible.splitlines %}
+                                <li>{{ public }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                
+                    <div class="formation-section">
+                        <h3>Prérequis<span class="toggle-icon">+</span></h3>
+                        <hr>
+                        <ul class="toggle-content">
+                            {% for prerequis in programmes.first.prerequis.splitlines %}
+                                <li>{{ prerequis }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                
+                    <div class="formation-section">
+                        <h3>Moyens Pédagogiques Techniques et Encadrement<span class="toggle-icon">+</span></h3>
+                        <hr>
+                        <ul class="toggle-content">
+                            {% for moyen in programmes.first.moyens_peda.splitlines %}
+                                <li>{{ moyen }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                
+                    <div class="formation-section">
+                        <h3>Programme de la Formation<span class="toggle-icon">+</span></h3>
+                        <hr>
+                        <ul class="toggle-content">
+                            {% for module in programmes.first.modules.all %}
+                                <li>
+                                    <strong>{{ module.nom }}</strong> : 
+                                    <ul>
+                                        {% for technique in module.techniques.all %}
+                                            <li>{{ technique.contenu }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                
+                    <div class="formation-section">
+                        <h3>Inclus dans cette Formation<span class="toggle-icon">+</span></h3>
+                        <hr>
+                        <ul class="toggle-content">
+                            {% for element in programmes.first.inclus.splitlines %}
+                                <li>{{ element }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <p class="message-absence">Aucun programme disponible pour cette formation pour le moment. Veuillez nous contacter pour en savoir plus.</p>
+                    <div class="bouton-container">
+                        <a href="{% url 'contact' %}" class="bouton-contact">Contactez-nous</a>
+                    </div>
+                {% endif %}
+                
+                
+                
+                </div>
+                
+                
+                
+        
+                <div class="formation-summary">
+                    <!-- Image en haut -->
+                   <img src="{% static 'img/academos.jpg' %}" alt="image-academos" class="formation-image">
+                
+                    <!-- Onglets Inter, Intra, Sur-mesure -->
+                    <div class="onglet-container">
+                        <button class="onglet-bouton actif" onclick="ouvrirOnglet(event, 'inter')">Inter</button>
+                        <button class="onglet-bouton" onclick="ouvrirOnglet(event, 'intra')">Intra</button>
+                        <button class="onglet-bouton" onclick="ouvrirOnglet(event, 'sur-mesure')">Sur-mesure</button>
+                    </div>
+                
+                    <hr>
+                    <!-- Contenu des onglets -->
+                    <div id="inter" class="onglet-contenu actif">
+
+                        <div class="ligne-info ">
+                            <p>
+                                <span class="icone icone-duree"><i class="fa-solid fa-user-check"></i></span>
+                                <strong>format</strong>
+                            </p>
+                            <p class="format"><strong>En présentiel ou à distance</strong></p>
+                        </div>
+
+                        <div class="ligne-info">
+                            <p>
+                                <span class="icone icone-duree"><i class="fa-regular fa-clock"></i></span>
+                                <strong>Durée</strong>
+                            </p>
+                            <p><strong>5 jours</strong></p>
+                        </div>
+
+
+                        <div class="ligne-info">
+                            <p>
+                                <span class="icone icone-prix"><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
+                                <strong>Prix </strong>
+                            </p>
+                            <p><strong>5 000 000 FCFA</strong></p>
+                        </div>
+
+
+                        <div class="bouton-container">
+                            <button class="bouton-inscription">S'inscrire</button>
+                        </div>
+
+                        <div class="button-btn">
+                            <i class="fa-solid fa-download"></i>
+                            <i class="fa-solid fa-print"></i>
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </div>
+
+                    </div>
+                
+                    <div id="intra" class="onglet-contenu">
+
+                        <div class="ligne-info ">
+                            <p>
+                                <span class="icone icone-duree"><i class="fa-solid fa-user-check"></i></span>
+                                <strong>format</strong>
+                            </p>
+                            <p class="format"><strong>Dans vos locaux ou à distance</strong></p>
+                        </div>
+
+                        <div class="ligne-info">
+                            <p>
+                                <span class="icone icone-duree"><i class="fa-regular fa-clock"></i></span>
+                                <strong>Durée</strong>
+                            </p>
+                            <p><strong>7 jours</strong></p>
+                        </div>
+
+
+                        <div class="ligne-info">
+                            <p>
+                                <span class="icone icone-prix"><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
+                                <strong>Prix </strong>
+                            </p>
+                            <p><strong>10 000 000 FCFA</strong></p>
+                        </div>
+
+                        <div class="bouton-container">
+                            <a href="devis.html"><button class="bouton-inscription">Demander un devis</button></a>
+                        </div>
+
+                        <div class="bouton-container">
+                            <button class="bouton-inscription devis"><i class="fa-solid fa-clock-rotate-left"></i> Votre devis en 90 sec.</button>
+                        </div>
+
+                        <div class="button-btn">
+                            <i class="fa-solid fa-download"></i>
+                            <i class="fa-solid fa-print"></i>
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </div>
+                    </div>
+
+
+                
+                    <div id="sur-mesure" class="onglet-contenu">
+                        <h4>Formation à la demande</h4>
+                        <div class="ligne-info">
+                            <span class="icone icone-duree"></span>
+                            <p>Cette thématique vous intéresse ?
+                                Nos équipes d’experts, de concepteurs pédagogiques
+                                 et de chefs de projet mettent en place pour vous 
+                                 et avec vous des dispositifs innovants, en présentiel 
+                                 et en digital.
+                            </p>
+                        </div>
+                        <div class="bouton-container">
+                            <a href="contact.html"><button class="bouton-inscription">Nous contacter</button></a>
+                        </div>
+
+                        <div class="button-btn">
+                            <i class="fa-solid fa-download"></i>
+                            <i class="fa-solid fa-print"></i>
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <section class="container">
+            <!-- Section des avis avec carrousel -->
+            <div class="avis-section">
+              <h2>Avis Clients</h2>
+              <div class="carousel">
+                <div class="carousel-item active">
+                  <div class="avis">
+                    <div class="avis-header">
+                      <img src="path-to-logo-or-photo.jpg" alt="Photo de Jean Dupont" class="user-photo">
+                      <div class="user-details">
+                        <p class="user-name">Jean Dupont</p>
+                        <div class="stars">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star-half-alt"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="testimonial">"Une expérience inoubliable avec des formateurs d'excellence. Bravo !"</p>
+                  </div>
+                </div>
+          
+                <div class="carousel-item">
+                  <div class="avis">
+                    <div class="avis-header">
+                      <img src="path-to-logo-or-photo.jpg" alt="Photo de Marie Curie" class="user-photo">
+                      <div class="user-details">
+                        <p class="user-name">Marie Curie</p>
+                        <div class="stars">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="testimonial">"Des contenus pertinents et une approche très personnalisée. Je recommande vivement !"</p>
+                  </div>
+                </div>
+          
+                <div class="carousel-item">
+                  <div class="avis">
+                    <div class="avis-header">
+                      <img src="path-to-logo-or-photo.jpg" alt="Photo de Pierre Martin" class="user-photo">
+                      <div class="user-details">
+                        <p class="user-name">Pierre Martin</p>
+                        <div class="stars">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="testimonial">"Formation de qualité supérieure. Les formateurs sont très professionnels."</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Section des formations complémentaires -->
+            <div class="formations-section">
+              <h2>Formations Complémentaires</h2>
+              <div class="grid">
+                <div class="formation-card">
+                  <h3>Gestion de Projets Agile</h3>
+                  <p class="duration"><strong>Durée :</strong> 6 mois</p>
+                  <p class="summary">Apprenez les principes de la méthodologie Agile pour optimiser vos projets.</p>
+                  <div class="stats">
+                    <div class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="reviews">4.5 (123 avis)</p>
+                  </div>
+                  <p class="price"><strong>Prix :</strong> 1 200 € (Intra) / 1 500 € (Inter)</p>
+                  <a href="#avis-client" class="btn">Avis Clients</a>
+                </div>
+          
+                <div class="formation-card">
+                  <h3>Marketing Digital Avancé</h3>
+                  <p class="duration"><strong>Durée :</strong> 3 mois</p>
+                  <p class="summary">Maitrisez les outils et stratégies du marketing digital.</p>
+                  <div class="stats">
+                    <div class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <p class="reviews">4.8 (89 avis)</p>
+                  </div>
+                  <p class="price"><strong>Prix :</strong> 900 € (Intra) / 1 200 € (Inter)</p>
+                  <a href="#avis-client" class="btn">Avis Clients</a>
+                </div>
+              </div>
+            </div>
+        </section>
+    
+
+        <footer>
+            <div class="footer-container">
+                <!-- Logo et présentation -->
+                <div class="footer-column footer-logo">
+                    <img src="{% static 'img/logo-png-academos.png' %}" alt="Logo AcademOS">
+                    <p>Des solutions professionnelles adaptées à vos besoins. Simplifiez vos projets avec nos services sur mesure.</p>
+                </div>
+        
+                <!-- Liens rapides -->
+                <div class="footer-column">
+                    <h4>Liens rapides</h4>
+                    <a href="#">Accueil</a>
+                    <a href="#">Nos services</a>
+                    <a href="#">À propos</a>
+                    <a href="#">Contactez-nous</a>
+                </div>
+        
+                <!-- Contact -->
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Email : <a href="mailto:contact@academos.com">contact@academos.com</a></p>
+                    <p>Téléphone : +221 77 123 45 67</p>
+                    <div class="footer-social-icons">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                &copy; 2025 AcademOS Conseils. Tous droits réservés.
+            </div>
+        </footer>
+
+
+        <script src="{% static 'js/script.js' %}" async defer></script>
+    </body>
+</html>

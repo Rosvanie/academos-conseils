@@ -1,0 +1,731 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*GENERAL*/
+
+:root {
+    --primary-color: #003BCE; /* Couleur principale */
+    --primary-bold-color: #001B70;
+    --secondary-color: #FFCE00; /* Couleur secondaire */
+    --accent-color: #ffffff; /* Couleur d'accent */
+    --text-color: #010C21; /* Couleur du texte */
+    --alert-color:#FF0000;/*Pour l'alert*/
+    --background-color: #f7f4f4; /* Couleur d'arrière-plan */
+    --text2-color:#000000;
+
+}
+
+
+*{
+    padding: 0; margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* Empêche le défilement global */
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+    
+}
+
+section {
+    position: relative;
+    width: 100vw;
+    overflow: auto; /* Permet le défilement à l'intérieur de la section si nécessaire */
+}
+
+/* Animation Keyframe */
+@keyframes fadeInUpScale {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Style pour les sections animées uniquement */
+  .section {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  /* Appliquer l'animation uniquement aux sections en vue */
+  .section.in-view {
+    animation: fadeInUpScale 0.8s ease forwards;
+  }
+  
+
+
+
+
+/*SECTION_ACCEUIL*/
+
+header{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 65px;
+    background-color: var(--alert-color);
+    align-items: center;
+    color: var(--accent-color);
+    gap: 20px;
+    z-index: 1; /* Assure que le header est sous la navbar fixe */
+}
+
+header i{
+    color: #000000;
+    font-size: 50px;
+    margin: 0 30px;
+}
+
+header p{
+    font-size: 0.8rem;
+}
+
+.navbar {
+    position: fixed; /* Fixe la navbar en haut de la page */
+    top: 0; /* Place la navbar en haut */
+    left: 0;
+    right: 0;
+    animation: slideIn 2s ease-out;
+    width: 100%; /* Prend toute la largeur de la fenêtre */
+    height: 90px; /* Hauteur de la navbar */
+    background-color: var(--accent-color); /* Couleur de fond de la navbar */
+    display: flex; /* Utilise Flexbox pour aligner les éléments */
+    align-items: center; /* Centre les éléments verticalement */
+    justify-content: space-around; /* Espacement égal entre les éléments */
+    z-index: 1000; /* Assure que la navbar est au-dessus du contenu */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour la distinction */
+}
+/* Ajoutez un padding supérieur au body pour éviter que le contenu ne soit caché derrière la navbar */
+body {
+    padding-top: 90px; /* Ajustez cette valeur selon la hauteur de votre navbar */
+}
+
+.navbar img{
+    width: 170px;
+}
+.menu{
+    display: flex;
+    gap: 20px;
+    
+    
+}
+
+.menu a{
+    font-weight: 600;
+    font-size: 18px;
+    gap: 20px;
+    color: var(--text-color);
+    transition: 1s;
+    display: inline-block; /* Assure que le pseudo-élément prend toute la largeur */
+    overflow: hidden; /* Cache le débordement de l'animation */
+    
+}
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Largeur initiale de la bordure */
+    height: 2px; /* Épaisseur de la bordure */
+    background-color: var(--secondary-color); /* Couleur de la bordure */
+    transition: width 1s ease; /* Transition de la largeur de la bordure */
+
+}
+.menu a:hover{
+    color: var(--primary-bold-color); /* Couleur du texte au survol */
+    font-weight: 700;
+}
+
+.menu a:hover::after {
+    width: 100%; /* Largeur finale de la bordure */
+}
+
+.menu a.active{
+    color: var(--primary-color);
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.search-container input[type="search"] {
+    padding: 10px 40px 10px 20px; /* Ajout de l'espace pour l'icône */
+    border: 1px solid var(--background-color);
+    border-radius: 20px;
+    font-size: 0.5rem;
+    width: 500px;
+}
+
+.search-button {
+    position: absolute;
+    right: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.search-button i {
+    font-size: 20px;
+}
+
+
+/* Montrer le menu lorsqu'il est actif */
+.menu.active {
+    display: flex;
+}
+
+
+/* Style du menu déroulant */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--accent-color); /* Utilisation de la couleur d'accentuation */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour l'effet de profondeur */
+    z-index: 10;
+    min-width: 150px;
+}
+
+.submenu a {
+    display: block;
+    color: var(--text-color); /* Couleur du texte */
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.submenu a:hover {
+    background-color: var(--primary-bold-color); /* Changement de couleur au survol */
+    color: #fff; /* Couleur de texte au survol */
+}
+
+/* Afficher le sous-menu au survol */
+.dropdown:hover .submenu {
+    display: block;
+}
+
+
+
+/* Media Queries pour la responsivité */
+
+@media (max-width: 1290px) {
+    .navbar {
+        width: 100%;
+        box-sizing: border-box;
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        overflow-x: hidden; /* Empêche les débordements horizontaux */
+    }
+
+    .menu {
+        justify-content: center;
+        gap: 20px;
+        width: 100%; /* Assure que le menu prend toute la largeur */
+        margin: 0;
+    }
+
+    .navbar img {
+        width: 120px;
+        max-width: 100%; /* Assure que l'image ne dépasse jamais 100% de la largeur */
+    }
+
+    .menu a {
+        font-size: 12px;
+        margin: 20px 0;
+    }
+
+    .search-container input[type="search"] {
+        max-width: 90vw; /* Définit une largeur maximale */
+    }
+
+    body, html {
+        width: 100%;
+        overflow-x: hidden; /* Empêche les débordements horizontaux */
+        padding-top: 90px;
+    }
+}
+
+
+
+
+.nav-menu {
+    background: var(--background-color);
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: fixed; /* Fixe la barre de navigation */
+    left: 0; /* Aligne-la avec le bord gauche */
+    width: 100%; /* Prend toute la largeur de l'écran */
+    z-index: 100; /* S'assure qu'elle reste au-dessus des autres éléments */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour plus de style */
+}
+
+.nav-menu a.active {
+    font-weight: 800;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text2-color);
+}
+
+
+.row_contact {
+    width: 100%;
+}
+
+.image-background {
+    width: 100%;
+    height: 60vh; /* 80% de la hauteur de la fenêtre */
+    background-image: url('../img/formation.jpg') ; /* Remplacez par le chemin de votre image */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+
+  .text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%; /* Le dégradé dépasse la largeur du texte */
+    height: 100%; /* Prend toute la hauteur */
+    background: linear-gradient(
+      to right,
+      rgba(30, 8, 90, 0.8) 20%,
+      rgba(6, 2, 32, 0.5) 70%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alignement du texte à gauche */
+    padding-left: 5%; /* Ajoute un espace à gauche pour aérer */
+  }
+
+.row_contact h3 {
+    color: white; /* Couleur du texte */
+    font-size: 3rem; /* Taille du texte */
+    font-weight: bold; /* Texte plus marqué */
+    text-align: left; /* Alignement du texte à gauche */
+    line-height: 1.4;
+    max-width: 70%; /* Le texte occupe au maximum 60% de la largeur */
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7); /* Donne de la profondeur au texte */
+    border-left: 5px solid rgba(255, 255, 255, 0.8); /* Ligne décorative à gauche */
+    padding-left: 15px; /* Espace entre le texte et la ligne */
+}
+
+.row_contact h3 span{
+    color: var(--secondary-color);
+}
+
+/* Styles Responsives */
+@media (max-width: 768px) {
+    .row_contact {
+        height: auto; /* Permet à la hauteur de s'ajuster automatiquement */
+        padding: 30px; /* Augmente le remplissage pour les petits écrans */
+    }
+
+    .row_contact h3 {
+        font-size: 2.5rem; /* Réduit la taille de la police pour les petits écrans */
+        margin: 1rem 0; /* Réduit les marges */
+    }
+}
+
+@media (max-width: 480px) {
+    .row_contact h3 {
+        font-size: 2rem; /* Réduction supplémentaire pour les très petits écrans */
+        margin: 0.5rem 0; /* Marges réduites */
+    }
+}
+
+
+
+
+/*SECTION*/
+
+.content {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.content .text{
+    margin-bottom: 20px;
+}
+
+.content .text h1{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+.content .text p span{
+    color: var(--text-color);
+    font-weight: 800;
+    line-height: 35px;
+}
+
+
+.grid {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Style pour les cartes impaires */
+.card:nth-child(odd) {
+    background-color: var(--accent-color);
+    color: var(--text2-color);
+}
+
+/* Style pour les cartes paires */
+.card:nth-child(even) {
+    background-color: var(--primary-bold-color); /* Remplacez par la couleur souhaitée */
+    color: var(--accent-color); /* Remplacez par la couleur de texte souhaitée */
+}
+
+/* Style des éléments internes */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.card img {
+    max-width: 80%;
+    height: auto;
+
+}
+
+.card h4 {
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.card p {
+    font-size: 0.9em;
+}
+
+.card a {
+    text-decoration: none;
+    padding: 10px 15px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--text2-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 700;
+}
+
+
+.card:nth-child(odd) a {
+    background: var(--primary-bold-color);
+    color: var(--accent-color);
+    
+    
+
+}
+
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+
+.card a:hover {
+ opacity: 0.8;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+    }
+
+    .card {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .card h4 {
+        font-size: 0.9em;
+    }
+
+    .card p {
+        font-size: 0.8em;
+    }
+
+    .card a {
+        font-size: 0.8em;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+    }
+
+    .card {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .card h4 {
+        font-size: 0.8em;
+    }
+
+    .card p {
+        font-size: 0.7em;
+    }
+
+    .card a {
+        font-size: 0.7em;
+        padding: 6px 10px;
+    }
+}
+
+
+
+
+/*SECTION */
+
+.custom-section {
+    padding: 20px;
+}
+
+/* Première div - pleine largeur */
+.full-width-div {
+    background-color: var(--primary-bold-color); /* Couleur de fond bleue */
+    color: var(--accent-color); /* Couleur du texte blanche */
+    text-align: center; /* Centre le texte */
+    padding: 40px 20px; /* Padding autour du contenu */
+}
+
+.main-title {
+    color: var(--secondary-color); /* Titre en jaune */
+    font-size: 3em; /* Taille du titre */
+    margin-bottom: 15px; /* Espace sous le titre */
+}
+
+.main-paragraph {
+    font-size: 1em; /* Taille du paragraphe */
+    line-height: 30px;
+}
+
+/* Deuxième div */
+
+.content-div {
+    display: flex; /* Utilise flexbox pour l'alignement */
+    justify-content: space-around; /* Espace autour des blocs */
+    gap: 10px; /* Espacement entre les blocs */
+    margin-top: 20px; /* Espace au-dessus de la div */
+    align-items: center;
+}
+
+/* Blocs de contenu */
+.content-block {
+    border-radius: 8px; /* Arrondit les bords */
+    padding: 20px; /* Padding interne */
+    flex: 1; /* Prend une largeur égale dans la flexbox */
+    max-width: 600px; /* Largeur maximum */
+    text-align: center; /* Centre le texte à l'intérieur des blocs */
+}
+
+.block-title {
+    font-size: 2em; /* Taille du titre du bloc */
+    margin-bottom: 10px; /* Espace sous le titre du bloc */
+    color: var(--primary-bold-color);
+    font-weight: 800;
+}
+
+.content-block i{
+    font-size: 4rem;
+    padding-bottom: 20px;
+}
+
+.block-paragraph {
+    font-size: 1em; /* Taille du paragraphe dans les blocs */
+}
+
+/* Styles responsives */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5em; /* Réduit la taille du titre sur les petits écrans */
+    }
+
+    .main-paragraph {
+        font-size: 0.9em; /* Ajuste la taille du paragraphe sur les petits écrans */
+    }
+
+    .content-div {
+        flex-direction: column; /* Empile les blocs sur petits écrans */
+        align-items: center; /* Centre les blocs dans la colonne */
+    }
+
+    .content-block {
+        width: 100%; /* Chaque bloc prendra 100% de la largeur sur les petits écrans */
+        max-width: none; /* Supprime la largeur maximum pour éviter les débordements */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*FOOTER*/
+/* FOOTER */
+footer {
+    background-color: #0d0d2b; /* Bleu nuit profond */
+    color: #d4d4dc; /* Gris clair pour contraste optimal */
+    padding: 60px 20px;
+    font-family: 'Inter', sans-serif; /* Typographie moderne et élégante */
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Ligne fine et discrète */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Colonnes du footer */
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.footer-column h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.footer-column h4::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: var(--secondary-color); /* Couleur d'accent */
+    margin-top: 8px;
+}
+
+.footer-column a {
+    display: block;
+    font-size: 1rem;
+    color: #d4d4dc;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: var(--secondary-color); /* Teinte élégante au survol */
+}
+
+/* Icônes sociales */
+.footer-social-icons {
+    display: flex;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.footer-social-icons a {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #1a1a3d;
+    color: #ffffff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.footer-social-icons a:hover {
+    background: var(--secondary-color); /* Accent dynamique */
+    color: var(--text2-color);
+    transform: scale(1.1);
+}
+
+/* Logo */
+.footer-logo img {
+    max-width: 150px; /* Largeur maximale du logo */
+    height: auto; /* Maintenir le ratio du logo */
+    margin-bottom: 20px;
+}
+
+/* Lien copyright */
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #888888;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .footer-column {
+        margin-bottom: 40px;
+    }
+}

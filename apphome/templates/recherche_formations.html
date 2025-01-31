@@ -1,0 +1,43 @@
+<!-- recherche_formations.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de Formations</title>
+    <!-- Inclure ici les liens vers tes fichiers CSS, comme ton CSS de recherche -->
+</head>
+<body>
+    <h1>Recherche de Formations</h1>
+
+    <div class="search-container">
+        <input type="search" id="search-input" placeholder="Saisissez un mot clé, une thématique, un métier">
+        <button type="button" class="search-button" id="search-button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <div id="search-results"></div> <!-- Conteneur pour afficher les résultats -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Importation de jQuery -->
+    <script>
+        $(document).ready(function() {
+            $('#search-input').on('input', function() {
+                let query = $(this).val();  // Récupère la valeur saisie par l'utilisateur
+                if (query.length > 2) {  // Affiche les résultats si le mot est plus long que 2 caractères
+                    $.ajax({
+                        url: "{% url 'recherche_formations' %}",  // L'URL de la vue qui traite la recherche
+                        data: {
+                            'q': query  // Envoie la requête de recherche
+                        },
+                        success: function(response) {
+                            $('#search-results').html(response.results_html);  // Affiche les résultats dans le conteneur
+                        }
+                    });
+                } else {
+                    $('#search-results').empty();  // Vide les résultats si la requête est trop courte
+                }
+            });
+        });
+    </script>
+</body>
+</html>

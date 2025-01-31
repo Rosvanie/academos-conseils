@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatez_academos-Conseil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+</head>
+<body>
+    <section>
+        <div class="navbar">
+            <a href="{% url 'base' %}"><img src="{% static 'img/logo-png-academos.png' %}" alt="logo_academos"></a>
+        
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Saisissez un mot clé, une thématique, un métier">
+                <button type="button" class="search-button" id="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <div id="search-results"></div> <!-- Conteneur pour afficher les résultats -->
+            </div>
+        
+            <div class="menu">
+                <a href="{% url 'base' %}">Accueil</a>
+                <a href="{% url 'about' %}">A propos</a>
+        
+                <!-- Menu déroulant pour Services -->
+                <div class="dropdown">
+                    <a href="{% url 'service' %}" class="dropdown-toggle">Services</a>
+                    <div class="submenu">
+                        <a href="{% url 'manage' %}">Management</a>
+                        <a href="{% url 'accompagne' %}">Accompagnement</a>
+                        <a href="{% url 'audit' %}">Audit</a>
+                        <a href="{% url 'conseil' %}">Conseil</a>
+                        <a href="{% url 'salle' %}">Salle à louer</a>
+                    </div>
+                </div>
+        
+                <a href="{% url 'formation' %}">Formations</a>
+                <a href="{% url 'contact' %}" class="active">Contact</a>
+            </div>
+        </div>
+        <div class="row_contact section">
+            <h3>Contactez-<span>NOUS </span></h3>
+        </div>
+        <main class="section container">
+            <div class="flex-container">
+                <div class="contact-info">
+                    <h2>
+                        N'hésitez pas à nous contacter. Remplissez simplement le 
+                        formulaire de contact ici et nous ne manquerons pas de vous 
+                        répondre dans les plus brefs délais.
+                    </h2>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i> 
+                            <b>Avenue</b><br>Avenue Ngueli ngueli, Quartier WHARF
+                            Centre - ville Pointe – Noire,
+                            République du Congo 
+                        </li><br>
+                        <li>
+                            <i class="fas fa-phone"></i> 
+                            <b>Téléphone </b><br>+242 04 051 00 92<br>
+                            +242 06 995 25 35
+                        </li><br>
+                        <li>
+                            <i class="fas fa-envelope"></i> 
+                            <b>Email :</b> <br>contact@cabinetformations.com
+                        </li><br>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <b> Horaires :</b> <br>Lundi - Vendredi, 8h - 17h
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="form-section">
+                    <h2>Formulaire d'inscription à une formation</h2>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        
+                        <label for="name">Nom complet :</label>
+                        <input type="text" id="name" name="name" required>
+                    
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" name="email" required>
+                    
+                        <label for="phone">Numéro de téléphone :</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    
+                        <label for="formation">Formation souhaitée :</label>
+                        <select id="formation" name="formation" required>
+                            <option value="">-- Choisissez une formation --</option>
+                            {% for formation in formations %}
+                                <option value="{{ formation.id }}">{{ formation.titre }}</option>
+                            {% empty %}
+                                <option value="">Aucune formation disponible</option>
+                            {% endfor %}
+                        </select>
+                    
+                        <label for="message">Message / Questions :</label>
+                        <textarea id="message" name="message" placeholder="Indiquez vos questions ou besoins particuliers"></textarea>
+                    
+                        <button type="submit">Envoyer ma demande</button>
+                    </form>
+                    
+                    {% if confirmation_message %}
+                        <div class="confirmation-message">
+                            {{ confirmation_message }}
+                        </div>
+                    {% endif %}
+                    
+        
+                    <!-- Bouton WhatsApp -->
+                    <a class="whatsapp-btn" href="https://wa.me/242064151674" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Contactez-nous sur WhatsApp
+                    </a>
+                </div>
+                
+                
+            </div>
+    
+        </div>
+        </main>
+    </section>
+
+
+    
+    <footer>
+        <div class="footer-container">
+            <!-- Logo et présentation -->
+            <div class="footer-column footer-logo">
+                <img src="{% static 'img/logo-png-academos.png' %}" alt="Logo AcademOS">
+                <p>Des solutions professionnelles adaptées à vos besoins. Simplifiez vos projets avec nos services sur mesure.</p>
+            </div>
+    
+            <!-- Liens rapides -->
+            <div class="footer-column">
+                <h4>Liens rapides</h4>
+                <a href="#">Accueil</a>
+                <a href="#">Nos services</a>
+                <a href="#">À propos</a>
+                <a href="#">Contactez-nous</a>
+            </div>
+    
+            <!-- Contact -->
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>Email : <a href="mailto:contact@academos.com">contact@academos.com</a></p>
+                <p>Téléphone : +221 77 123 45 67</p>
+                <div class="footer-social-icons">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            &copy; 2025 AcademOS Conseils. Tous droits réservés.
+        </div>
+    </footer>
+    
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+    
+</body>
+</html>

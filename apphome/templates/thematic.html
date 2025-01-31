@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thématique_Formations- Academos
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/thematic.css' %}">
+</head>
+<body>
+
+    <section class="header">
+        <div class="navbar">
+            <a href="{% url 'base' %}"><img src="{% static 'img/logo-png-academos.png' %}" alt="logo_academos"></a>
+        
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Saisissez un mot clé, une thématique, un métier">
+                <button type="button" class="search-button" id="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <div id="search-results"></div> <!-- Conteneur pour afficher les résultats -->
+            </div>
+        
+            <div class="menu">
+                <a href="{% url 'base' %}">Accueil</a>
+                <a href="{% url 'about' %}">A propos</a>
+        
+                <!-- Menu déroulant pour Services -->
+                <div class="dropdown">
+                    <a href="{% url 'service' %}" class="dropdown-toggle">Services</a>
+                    <div class="submenu">
+                        <a href="{% url 'manage' %}">Management</a>
+                        <a href="{% url 'accompagne' %}">Accompagnement</a>
+                        <a href="{% url 'audit' %}">Audit</a>
+                        <a href="{% url 'conseil' %}">Conseil</a>
+                        <a href="{% url 'salle' %}">Salle à louer</a>
+                    </div>
+                </div>
+        
+                <a href="{% url 'formation' %}">Formations</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+        </div>
+
+        <div class="row_thematic section">
+            <h3><span>{{ type_formation.nom }}</span></h3>
+        </div>
+
+        <div class="container_thematic">
+            <div class="thematic-left">
+                <h2>Thématiques Disponibles</h2>
+                <div class="onglet_left">
+                    {% for thematique in thematiques %}
+                        <a href="#" data-tab="{{ thematique.code_prefix }}" class="{% if forloop.first %}active{% endif %}">
+                            {{ thematique.nom }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        
+            <div class="formation-right">
+                {% for thematique in thematiques %}
+                    <div id="{{ thematique.code_prefix }}" class="formations-table-container {% if forloop.first %}active{% endif %}">
+                        <table class="formations-table">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Formation</th>
+                                    <th>Durée</th>
+                                    <th>Prix (CFA)</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for formation in thematique.formations.all %}
+                                <tr>
+                                    <td>{{ formation.code }}</td>
+                                    <td>{{ formation.titre }}</td>
+                                    <td>{{ formation.duree }} {{ formation.unite_duree }}</td>
+                                    <td>{{ formation.prix_formate }}</td>
+                                    <td><a href="{% url 'program' formation.id %}" class="btn-decouvrir">Découvrir</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        
+        
+
+    </section>
+
+    <section class="formations-complementaires">
+        <h2 class="section-title">Formations Complémentaires</h2>
+        <div class="cards-grid">
+            <!-- Carte 1 -->
+            <div class="card">
+                <h3 class="card-title">Formation 1</h3>
+                <p class="card-description">Description courte de la formation complémentaire.</p>
+                <a href="#" class="btn-detail">En savoir plus</a>
+            </div>
+            <!-- Carte 2 -->
+            <div class="card">
+                <h3 class="card-title">Formation 2</h3>
+                <p class="card-description">Description courte de la formation complémentaire.</p>
+                <a href="#" class="btn-detail">En savoir plus</a>
+            </div>
+            <!-- Carte 3 -->
+            <div class="card">
+                <h3 class="card-title">Formation 3</h3>
+                <p class="card-description">Description courte de la formation complémentaire.</p>
+                <a href="#" class="btn-detail">En savoir plus</a>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Formation 3</h3>
+                <p class="card-description">Description courte de la formation complémentaire.</p>
+                <a href="#" class="btn-detail">En savoir plus</a>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Formation 3</h3>
+                <p class="card-description">Description courte de la formation complémentaire.</p>
+                <a href="#" class="btn-detail">En savoir plus</a>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Formation 3</h3>
+                <p class="card-description">Description courte de la formation complémentaire.</p>
+                <a href="#" class="btn-detail">En savoir plus</a>
+            </div>
+        </div>
+    </section>
+    
+
+    <footer>
+        <div class="footer-container">
+            <!-- Logo et présentation -->
+            <div class="footer-column footer-logo">
+                <img src="{% static 'img/logo-png-academos.png' %}" alt="Logo AcademOS">
+                <p>Des solutions professionnelles adaptées à vos besoins. Simplifiez vos projets avec nos services sur mesure.</p>
+            </div>
+    
+            <!-- Liens rapides -->
+            <div class="footer-column">
+                <h4>Liens rapides</h4>
+                <a href="#">Accueil</a>
+                <a href="#">Nos services</a>
+                <a href="#">À propos</a>
+                <a href="#">Contactez-nous</a>
+            </div>
+    
+            <!-- Contact -->
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>Email : <a href="mailto:contact@academos.com">contact@academos.com</a></p>
+                <p>Téléphone : +221 77 123 45 67</p>
+                <div class="footer-social-icons">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            &copy; 2025 AcademOS Conseils. Tous droits réservés.
+        </div>
+    </footer>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+    
+</body>
+</html>

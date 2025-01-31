@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'css/devis.css' %}">
+    </head>
+    <body>
+
+        <div class="navbar">
+            <a href="{% url 'base' %}"><img src="{% static 'img/logo-png-academos.png' %}" alt="logo_academos"></a>
+        
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Saisissez un mot clé, une thématique, un métier">
+                <button type="button" class="search-button" id="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <div id="search-results"></div> <!-- Conteneur pour afficher les résultats -->
+            </div>
+        
+            <div class="menu">
+                <a href="{% url 'base' %}">Accueil</a>
+                <a href="{% url 'about' %}">A propos</a>
+        
+                <!-- Menu déroulant pour Services -->
+                <div class="dropdown">
+                    <a href="{% url 'service' %}" class="dropdown-toggle">Services</a>
+                    <div class="submenu">
+                        <a href="{% url 'manage' %}">Management</a>
+                        <a href="{% url 'accompagne' %}">Accompagnement</a>
+                        <a href="{% url 'audit' %}">Audit</a>
+                        <a href="{% url 'conseil' %}">Conseil</a>
+                        <a href="{% url 'salle' %}">Salle à louer</a>
+                    </div>
+                </div>
+        
+                <a href="{% url 'formation' %}">Formations</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+        </div>
+
+
+
+
+        <section class="section" id="demandes-de-devis">
+            <h2>Demandes de devis</h2>
+            <form action="/submit-devis" method="POST">
+                <div class="form-container">
+                    <div class="form-column">
+                        <label for="intitule">Intitulé de la demande<span class="required">*</span>:</label>
+                        <input type="text" id="intitule" name="intitule" required>
+        
+                        <label for="civilite">Civilité<span class="required">*</span>:</label>
+                        <select id="civilite" name="civilite" required>
+                            <option value="" disabled selected>Choisissez une option</option>
+                            <option value="Madame">Madame</option>
+                            <option value="Monsieur">Monsieur</option>
+                        </select>
+        
+                        <label for="fonction">Fonction:</label>
+                        <input type="text" id="fonction" name="fonction">
+        
+                        <label for="type">Vous êtes<span class="required">*</span>:</label>
+                        <select id="type" name="type" required>
+                            <option value="" disabled selected>Choisissez une option</option>
+                            <option value="entreprise">Entreprise</option>
+                            <option value="particulier">Particulier</option>
+                        </select>
+                    </div>
+        
+                    <div class="form-column">
+                        <label for="email">Adresse Email<span class="required">*</span>:</label>
+                        <input type="email" id="email" name="email" required>
+        
+                        <label for="nom">Nom<span class="required">*</span>:</label>
+                        <input type="text" id="nom" name="nom" required>
+        
+                        <label for="prenom">Prénom<span class="required">*</span>:</label>
+                        <input type="text" id="prenom" name="prenom" required>
+        
+                        <label for="telephone">Numéro de téléphone<span class="required">*</span>:</label>
+                        <input type="tel" id="telephone" name="telephone" required>
+                    </div>
+                </div>
+                <button type="submit">Envoyer</button>
+            </form>
+        </section>
+        
+
+        <footer>
+            <div class="footer-container">
+                <!-- Logo et présentation -->
+                <div class="footer-column footer-logo">
+                    <img src="{% static 'img/logo-png-academos.png' %}" alt="Logo AcademOS">
+                    <p>Des solutions professionnelles adaptées à vos besoins. Simplifiez vos projets avec nos services sur mesure.</p>
+                </div>
+        
+                <!-- Liens rapides -->
+                <div class="footer-column">
+                    <h4>Liens rapides</h4>
+                    <a href="#">Accueil</a>
+                    <a href="#">Nos services</a>
+                    <a href="#">À propos</a>
+                    <a href="#">Contactez-nous</a>
+                </div>
+        
+                <!-- Contact -->
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Email : <a href="mailto:contact@academos.com">contact@academos.com</a></p>
+                    <p>Téléphone : +221 77 123 45 67</p>
+                    <div class="footer-social-icons">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                &copy; 2025 AcademOS Conseils. Tous droits réservés.
+            </div>
+        </footer>
+
+
+        <script src="{% static 'js/script.js' %}" async defer></script>
+
+    </body>
+</html>
